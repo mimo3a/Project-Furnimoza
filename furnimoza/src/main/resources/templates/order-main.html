@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Order main</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+	<header th:insert="blocks/main-header::header-fragment"></header>
+
+	<div class="container mt-10">
+		<h1>Details of the order</h1>
+
+		<!-- Используйте th:each для итерации по коллекции details -->
+		<div th:each="detail : ${details}">
+			<table class="table table-responsive">
+				<tr>
+					<td><span th:text="${detail.length}" class="form-control"></span></td>
+					<td><span th:text="${detail.width}" class="form-control"></span></td>
+					<td><span th:text="${detail.thick}" class="form-control"></span></td>
+					<td><span th:text="${detail.amount}" class="form-control"></span></td>
+					<td><span th:text="${detail.material}" class="form-control"></span></td>
+					<td><a class="btn btn-warning" th:href="'/order/' + ${detail.id} +'/edit'">edit</a></td>
+					<td><a class="btn btn-warning" th:href="'/blog/' + ${detail.id}">delete</a></td>
+				</tr>
+			</table>
+		</div>
+
+		<form action="/order" method="post">
+			<table class="table table-responsive">
+
+
+				<td><input inputmode="numeric" name="length" placeholder="lengt" class="form-control"></td>
+				<td><input  inputmode="numeric" name="width" placeholder="width" class="form-control"></td>
+				<td><input inputmode="numeric" name="thick" placeholder="thickness" class="form-control"></td>
+				<td><input inputmode="numeric" name="amount" placeholder="amount" class="form-control"></td>
+				<td>
+					<select name="material" class="form-control" inputmode="none" style="width: 100px;">
+						<option value="eiche">Eiche</option>
+						<option value="fichte">Fichte</option>
+						<option value="mdf">MDF</option>
+						<!-- Add more options as needed -->
+					</select>
+				</td>
+
+				<td><button type="submit" class="btn btn-success">Add</button></td>
+				</tr>
+			</table>
+
+
+		</form>
+	</div>
+
+	<footer th:insert="blocks/main-footer::footer-fragment"></footer>
+</body>
+
+</html>
